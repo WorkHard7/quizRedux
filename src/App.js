@@ -1,58 +1,92 @@
-import './index.scss';
+import "./index.scss";
+import React from "react";
 
 const questions = [
   {
-    title: 'React - это ... ?',
-    variants: ['библиотека', 'фреймворк', 'приложение'],
+    title: "React - is ... ?",
+    variants: ["library", "framework", "application"],
     correct: 0,
   },
   {
-    title: 'Компонент - это ... ',
-    variants: ['приложение', 'часть приложения или страницы', 'то, что я не знаю что такое'],
+    title: "Component - is ... ",
+    variants: [
+      "an application",
+      "a part of application or page",
+      "this is something I don't know",
+    ],
     correct: 1,
   },
   {
-    title: 'Что такое JSX?',
+    title: "What is JSX?",
     variants: [
-      'Это простой HTML',
-      'Это функция',
-      'Это тот же HTML, но с возможностью выполнять JS-код',
+      "Simple HTML",
+      "It's a function",
+      "The same HTML, but can contain JS code",
     ],
     correct: 2,
   },
 ];
 
-function Result() {
+function Result({ result }) {
   return (
     <div className="result">
       <img src="https://cdn-icons-png.flaticon.com/512/2278/2278992.png" />
-      <h2>Вы отгадали 3 ответа из 10</h2>
-      <button>Попробовать снова</button>
+      <h2>
+        `You guessed {result} answers from {questions.length}`
+      </h2>
+      <a href="/">
+        <button>Try again!</button>
+      </a>
     </div>
   );
 }
 
-function Game() {
+function Game({ step, question, onClickVariant }) {
+  const percentage = Math.floor((step / questions.length) * 100);
+
   return (
     <>
       <div className="progress">
-        <div style={{ width: '50%' }} className="progress__inner"></div>
+        <div
+          style={{ width: `${percentage}%` }}
+          className="progress__inner"
+        ></div>
       </div>
-      <h1>Что такое useState?</h1>
+      <h1>{question.title}</h1>
       <ul>
-        <li>Это функция для хранения данных компонента</li>
-        <li>Это глобальный стейт</li>
-        <li>Это когда на ты никому не нужен</li>
+        {question.variants.map((item, index) => (
+          <li onClick={() => onClickVariant(index)} key={item}>
+            {item}
+          </li>
+        ))}
       </ul>
     </>
   );
 }
 
 function App() {
+  const [step, setStep] = React.useState(0);
+  const [result, setResult] = React.useState(0);
+  const question = questions[step];
+
+  const onClickVariant = (index) => {
+    setStep(step + 1);
+
+    index === question.correct ? setResult(result + 1) : setResult(result);
+  };
+
   return (
     <div className="App">
-      <Game />
-      {/* <Result /> */}
+      {step !== questions.length ? (
+        <Game
+          step={step}
+          question={question}
+          result={result}
+          onClickVariant={onClickVariant}
+        />
+      ) : (
+        <Result questions={questions} result={result} />
+      )}
     </div>
   );
 }
