@@ -17,9 +17,7 @@ function App() {
   const onClickVariant = (index) => {
     dispatch(incrementStep());
 
-    index === question.correct
-      ? dispatch(changeResult())
-      : changeResultParam(myResult);
+    index === question.correct && dispatch(changeResult());
   };
 
   return (
