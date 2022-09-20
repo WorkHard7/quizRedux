@@ -3,8 +3,6 @@ export const resultReducer = (state = 0, action) => {
     case "SETRESULT":
       console.log("result: ", state);
       return state + 1;
-    case "SETRESULTPARAM":
-      return state + action.payload;
     default:
       return state;
   }

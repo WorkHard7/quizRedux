@@ -4,7 +4,7 @@ import { Game } from "./components/Game";
 import { Result } from "./components/Result";
 import { useDispatch, useSelector } from "react-redux";
 import { incrementStep } from "./actions/incrementStep";
-import { changeResult, changeResultParam } from "./actions/changeResult";
+import { changeResult } from "./actions/changeResult";
 import { questions } from "./utils/questions";
 
 function App() {
