@@ -6,7 +6,7 @@ export const changeResult = () => {
 
 export const changeResultParam = (param) => {
   return {
-    type: "SETRESULT",
+    type: "SETRESULTPARAM",
     payload: param,
   };
 };

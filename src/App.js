@@ -8,17 +8,17 @@ import { changeResult, changeResultParam } from "./actions/changeResult";
 import { questions } from "./utils/questions";
 
 function App() {
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   const myStep = useSelector((state) => state.step);
   const myResult = useSelector((state) => state.result);
   const question = questions[myStep];
 
   const onClickVariant = (index) => {
-    dispath(incrementStep());
+    dispatch(incrementStep());
 
     index === question.correct
-      ? dispath(changeResult())
+      ? dispatch(changeResult())
       : changeResultParam(myResult);
   };
 
